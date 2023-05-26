@@ -1,3 +1,28 @@
 import './styles.css'
-console.log('first log');
-console.log('second log');
+import { Header, Footer } from './page-load'
+import Section from './section';
+import Main from './main';
+
+const SectionMain = () => {
+  const divSectionMain = document.createElement('div');
+  divSectionMain.classList.add('divSectionMain');
+
+  divSectionMain.appendChild(Section())
+  divSectionMain.appendChild(Main())
+
+  return divSectionMain
+}
+
+const pageLoad = () => {
+
+  const refContentDiv = document.querySelector('#content');
+
+  refContentDiv.classList.add('content')
+  refContentDiv.appendChild(Header())
+  refContentDiv.appendChild(SectionMain())
+
+  refContentDiv.appendChild(Footer())
+
+}
+
+pageLoad()
