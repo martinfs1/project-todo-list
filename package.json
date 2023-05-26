@@ -1,0 +1,27 @@
+{
+  "name": "project-todo-list",
+  "version": "1.0.0",
+  "description": "Todo List App!",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinfs1/project-todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinfs1/project-todo-list/issues"
+  },
+  "homepage": "https://github.com/martinfs1/project-todo-list#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.4",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  }
+}
