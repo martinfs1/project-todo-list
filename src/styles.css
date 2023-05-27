@@ -1,8 +1,74 @@
-h1 {
-  color: red
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(to top, #33001b, #ff0084);
+  height: 100vh;
+  width: 100vw;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  height: inherit;
+  width: inherit;
+}
+
+.divHeader {
+  display: flex;
+  justify-content: center;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  align-items: center;
+  width: 100vw;
+  height: 20%;
+  border-radius: 10ox;
+  border: solid
+}
+
+.divHeader h1 {
+  color: black;
 }
 
 .divSectionMain {
   display: flex;
   gap: 10px;
+  border: solid;
+  width: 100vw;
+  height: 60%;
+}
+
+.divSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  border: solid;
+}
+
+.divMain {
+  display: flex;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  justify-content: center;
+  align-items: center;
+  color: black;
+  width: 68%;
+  border: solid
+}
+
+.divFooter {
+  display: flex;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  color: black;
+  height: 20%;
+  border: solid
+}
+
+.divFooter p {
+  font-size: 30px;
 }
