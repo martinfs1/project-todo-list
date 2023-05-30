@@ -2,7 +2,9 @@ import './styles.css'
 import { Header, Footer } from './page-load'
 import Section from './section';
 import Main from './main';
+import CreateTask from './createTask';
 
+CreateTask()
 const SectionMain = () => {
   const divSectionMain = document.createElement('div');
   divSectionMain.classList.add('divSectionMain');

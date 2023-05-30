@@ -110,13 +110,23 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/createTask.js":
+/*!***************************!*\
+  !*** ./src/createTask.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ CreateTask)\n/* harmony export */ });\n\r\nfunction CreateTask() {\r\n  console.log('from create task!');\r\n}\n\n//# sourceURL=webpack://project-todo-list/./src/createTask.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n/* harmony import */ var _page_load__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./page-load */ \"./src/page-load.js\");\n/* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./section */ \"./src/section.js\");\n/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main */ \"./src/main.js\");\n\n\n\n\n\nconst SectionMain = () => {\n  const divSectionMain = document.createElement('div');\n  divSectionMain.classList.add('divSectionMain');\n\n  divSectionMain.appendChild((0,_section__WEBPACK_IMPORTED_MODULE_2__[\"default\"])())\n  divSectionMain.appendChild((0,_main__WEBPACK_IMPORTED_MODULE_3__[\"default\"])())\n\n  return divSectionMain\n}\n\nconst pageLoad = () => {\n\n  const refContentDiv = document.querySelector('#content');\n\n  refContentDiv.classList.add('content')\n  refContentDiv.appendChild((0,_page_load__WEBPACK_IMPORTED_MODULE_1__.Header)())\n  refContentDiv.appendChild(SectionMain())\n\n  refContentDiv.appendChild((0,_page_load__WEBPACK_IMPORTED_MODULE_1__.Footer)())\n\n}\n\npageLoad()\n\n\n//# sourceURL=webpack://project-todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n/* harmony import */ var _page_load__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./page-load */ \"./src/page-load.js\");\n/* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./section */ \"./src/section.js\");\n/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main */ \"./src/main.js\");\n/* harmony import */ var _createTask__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createTask */ \"./src/createTask.js\");\n\n\n\n\n\n\n(0,_createTask__WEBPACK_IMPORTED_MODULE_4__[\"default\"])()\nconst SectionMain = () => {\n  const divSectionMain = document.createElement('div');\n  divSectionMain.classList.add('divSectionMain');\n\n  divSectionMain.appendChild((0,_section__WEBPACK_IMPORTED_MODULE_2__[\"default\"])())\n  divSectionMain.appendChild((0,_main__WEBPACK_IMPORTED_MODULE_3__[\"default\"])())\n\n  return divSectionMain\n}\n\nconst pageLoad = () => {\n\n  const refContentDiv = document.querySelector('#content');\n\n  refContentDiv.classList.add('content')\n  refContentDiv.appendChild((0,_page_load__WEBPACK_IMPORTED_MODULE_1__.Header)())\n  refContentDiv.appendChild(SectionMain())\n\n  refContentDiv.appendChild((0,_page_load__WEBPACK_IMPORTED_MODULE_1__.Footer)())\n\n}\n\npageLoad()\n\n\n//# sourceURL=webpack://project-todo-list/./src/index.js?");
 
 /***/ }),
 
