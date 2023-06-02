@@ -10,7 +10,69 @@
 </head>
 
 <body>
-  <div id="content"></div>
+  <div class="header">
+    <h1>Todo List App</h1>
+  </div>
+
+  <div class="container-listsMain" id="">
+
+    <div class="container-listsForm">
+      <h2>Lists</h2>
+      <div class="container-lists"></div>
+      <form class="dFlex" id="ListsformId">
+        <legend>Add a List!</legend>
+        <fieldset class="inputGroup dFlex">
+          <div class="inputLabel dFlex">
+            <label for="titleList"></label>
+            <input type="text" name="titleList" id="titleList" required>
+          </div>
+          <div class="btn">
+            <button class="newListBtn" type="submit">New List</button>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+
+    <div class="container-main">
+      <div class="defaultTask">My Day</div>
+
+      <form class="dFlex" id="formId">
+        <legend>Add a task!</legend>
+        <fieldset class="inputGroup dFlex">
+          <div class="inputLabel dFlex">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required>
+          </div>
+          <div class="inputLabel dFlex">
+            <label for="priority">Important</label>
+            <input type="checkbox" name="priority" id="priority" value="important">
+          </div>
+          <div class="inputLabel dFlex">
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date" required>
+          </div>
+          <div class="inputLabel dFlex">
+            <label for="read?">Notes</label>
+            <textarea name="notes" id="notes" cols="10" rows="5"></textarea>
+          </div>
+          <div class="inputLabel dFlex">
+            <label for="project">Project</label>
+            <input type="text" name="title" id="title" required>
+          </div>
+
+          <div class="btn">
+            <button class="newTaskBtn" type="submit">New Task</button>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>crafted by Martin Sandander</p>
+  </div>
 
 </body>
 
