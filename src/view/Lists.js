@@ -1,45 +1,53 @@
 import { CreateLists } from '../model/createListsAndTasks';
 
 const titleDom = document.getElementById('titleList');
-const listsDiv = document.getElementById('container-lists');
+const listsDiv = document.querySelector('.container-lists');
 const listsToshow = [];
-let card;
+let cardList;
+let btnListToRemove;
 
 const resetInput = () => {
-  titleDom.value = '';
+  titleDom.value = ' ';
 };
 
-const addList = () => {
+const addListToLists = () => {
   const title = titleDom.value;
-  const list = CreateLists(title);
-  listsToshow.push(list);
-  console.log(listsToshow);
+  if (title) {
+    const list = CreateLists(title);
+    listsToshow.push(list);
+  }
 };
 
 const displayLists = (array) => {
   array.forEach((element) => {
-    card = `
-    <div class="lists" data-id>
-    <h2>Title:${element.title}</h2>    
-    <button class="toggle-btn" type="button">Read? Yes/No </button>    
-    <button class="remove-btn" type="button">Remove</button>
-    </div>
-    `;
-    listsDiv.innerHTML += card;
+    cardList = `
+      <div class="list" data-id=${element.id}>
+      <h2>Title:${element.title}</h2> 
+      <button class="remove-btn" type="button" data-id=${element.id}>Remove</button>
+      </div>
+      `;
+  });
+  listsDiv.innerHTML += cardList;
+};
+
+const removeList = () => {
+  btnListToRemove.remove();
+  listsToshow.forEach((list, i) => {
+    if (list.id === btnListToRemove.dataset.id) { listsToshow.splice(i, 1); }
   });
 };
-//  I need to continue to solve the problem to show new lists
-const ListsSection = () => {
-  const lists = document.querySelector('.container-lists');
-  console.log(lists);
-  document.addEventListener('click', (e) => {
+
+const listsSection = () => {
+  listsDiv.parentElement.addEventListener('click', (e) => {
     e.preventDefault();
     if (e.target.matches('.newListBtn')) {
-      console.log('newListBtn');
-      addList();
+      addListToLists();
       resetInput();
       displayLists(listsToshow);
+    } else if (e.target.matches('.remove-btn')) {
+      btnListToRemove = e.target.parentNode;
+      removeList();
     }
   });
 };
-export default ListsSection;
+export default listsSection;

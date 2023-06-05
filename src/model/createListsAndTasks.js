@@ -14,18 +14,13 @@ const CreateTasks = (title, priority, date, edit = false, done = false, note = '
   };
 };
 
-const task = CreateTasks('buy milk', true, 'today', true, true, 'No perder el tiempo');
-task.info();
-
 const CreateLists = (title) => {
+  const id = crypto.randomUUID();
   const info = () => {
     console.log(`List: ${title}`);
   };
-  return { title, info };
+  return { title, info, id };
 };
-
-const lista1 = CreateLists('Shopping List');
-lista1.info();
 
 export {
   CreateTasks,
