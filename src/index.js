@@ -1,8 +1,8 @@
 import './styles.css';
 import 'normalize.css';
 import { listsSection } from './view/listsSection';
-import { Main, formTask } from './view/main';
+import mainSection from './view/mainSection';
+import { defaultProject } from './model/createListsAndTasks';
 
 listsSection();
-Main();
-formTask();
+mainSection(defaultProject);

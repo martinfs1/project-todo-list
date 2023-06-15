@@ -14,13 +14,13 @@ const CreateTask = (title, priority, date, edit = false, done = false, note = 'e
   };
 };
 
-const CreateList = (title, ...task) => {
+const CreateList = (title, ...tasks) => {
   const id = crypto.randomUUID();
   const info = () => {
     console.log(`List: ${title}`);
   };
   return {
-    title, info, id, task,
+    title, info, id, tasks,
   };
 };
 const task1 = CreateTask('buy butter', true, 'hoy');
