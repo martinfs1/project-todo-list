@@ -1,4 +1,5 @@
 const CreateTask = (title, priority, date, edit = false, done = false, note = 'empty') => {
+  const id = crypto.randomUUID();
   const info = () => {
     console.log(`
       Task:${title}
@@ -10,7 +11,7 @@ const CreateTask = (title, priority, date, edit = false, done = false, note = 'e
       `);
   };
   return {
-    title, priority, date, note, info, done, edit,
+    title, priority, date, note, info, done, edit, id,
   };
 };
 

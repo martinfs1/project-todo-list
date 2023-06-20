@@ -5,6 +5,7 @@ const listsDiv = document.querySelector('.container-lists');
 const listsToshow = [defaultProject];
 let cardList;
 let btnListToRemove;
+
 const resetInput = () => {
   titleDom.value = ' ';
 };
