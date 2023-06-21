@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, addMinutes } from 'date-fns';
 import { CreateTask } from '../model/createListsAndTasks';
 import { listsToshow } from './listsSection';
 
@@ -34,31 +34,26 @@ const displayListWithTasks = (arrayLists) => {
 
   const addTasksToList = (listId) => {
     const titleInput = document.getElementById('titleTask');
-    const date = document.getElementById('date');
-    const dateTransfor = format((date.value), 'dd-MM-yyyy');
-    console.log(dateTransfor);
+    const inputValue = document.getElementById('date').value;
+    const date = addMinutes(new Date(inputValue), new Date().getTimezoneOffset());
+    const formatedDate = format(date, 'dd-MM-yyyy');
     const priority = document.getElementById('priority');
     const note = document.getElementById('notes');
     const listToAddTasks = listId; // this is to compare selected project  to add tasks
     if (listToAddTasks === listId) {
-      const task = CreateTask(
+      const newTask = CreateTask(
         titleInput.value,
         priority.checked,
-        // format(date.value, 'dd-MM-yyyy'),
-        date.value,
+        formatedDate,
         note.value,
       );
 
-      // console.log(format(date.value), 'dd-MM-yyyy');
       const listFound = listsToshow.find((list) => list.id === listId);
-      listFound.tasks.push(task);
-      // const newDivtask =
-
-      const taskDiv = document.createElement('div');
-      taskDiv.setAttribute('class', 'task');
-      taskDiv.setAttribute('data-id', `${task.id}`);
-      taskDiv.textContent = `${task.title}`;
-      listToshowDiv.firstElementChild.appendChild(taskDiv);
+      listFound.tasks.push(newTask);
+      console.log(listFound);
+      const listFiltered = listFound.tasks.filter((taskToFilter) => taskToFilter.id === newTask.id);
+      console.log(listFiltered);
+      showTasksOnList(listFiltered);
     }
   };
 
