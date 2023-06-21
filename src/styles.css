@@ -50,6 +50,13 @@ body {
   border: solid
 }
 
+.task {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .footer {
   display: flex;
   /* background-color: rgba(0, 0, 0, 0.5); */

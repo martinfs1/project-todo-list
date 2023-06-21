@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { CreateTask } from '../model/createListsAndTasks';
 import { listsToshow } from './listsSection';
 
@@ -18,7 +19,10 @@ const displayListWithTasks = (arrayLists) => {
     console.log(arrayTasks.tasks);
     arrayTasks.tasks.forEach((element) => {
       taskToShow = `
-      <div class="task" data-id=${element.id}>${element.title}
+      <div class="task" data-id=${element.id}>
+      <h3>${element.title}</h3>
+      <p>${element.priority}</p>
+      <p>${element.date}</p>
       </div>      
       `;
       const h2ToAddTasks = document.getElementById('h2Main');
@@ -31,14 +35,24 @@ const displayListWithTasks = (arrayLists) => {
   const addTasksToList = (listId) => {
     const titleInput = document.getElementById('titleTask');
     const date = document.getElementById('date');
-    const priority = document.getElementById('piority');
-    console.log(priority.value);
-    console.log(date.value);
+    const dateTransfor = format((date.value), 'dd-MM-yyyy');
+    console.log(dateTransfor);
+    const priority = document.getElementById('priority');
+    const note = document.getElementById('notes');
     const listToAddTasks = listId; // this is to compare selected project  to add tasks
     if (listToAddTasks === listId) {
-      const task = CreateTask(titleInput.value, true, date.value);
+      const task = CreateTask(
+        titleInput.value,
+        priority.checked,
+        // format(date.value, 'dd-MM-yyyy'),
+        date.value,
+        note.value,
+      );
+
+      // console.log(format(date.value), 'dd-MM-yyyy');
       const listFound = listsToshow.find((list) => list.id === listId);
       listFound.tasks.push(task);
+      // const newDivtask =
 
       const taskDiv = document.createElement('div');
       taskDiv.setAttribute('class', 'task');
@@ -49,8 +63,8 @@ const displayListWithTasks = (arrayLists) => {
   };
 
   taskForm.addEventListener('click', (e) => {
-    e.preventDefault();
     if (e.target.matches('.newTaskBtn')) {
+      e.preventDefault();
       addTasksToList(arrayLists.id);
     }
   });

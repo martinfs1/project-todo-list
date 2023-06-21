@@ -1,4 +1,6 @@
-const CreateTask = (title, priority, date, edit = false, done = false, note = 'empty') => {
+import { format } from 'date-fns';
+
+const CreateTask = (title, priority, date = format(new Date(), 'dd-MM-yyyy'), note = 'empty', edit = false, done = false) => {
   const id = crypto.randomUUID();
   const info = () => {
     console.log(`
@@ -24,11 +26,9 @@ const CreateList = (title, ...tasks) => {
     title, info, id, tasks,
   };
 };
-const task1 = CreateTask('buy butter', true, 'hoy');
-const task2 = CreateTask('buy usd', true, 'hoy');
-const task3 = CreateTask('buy btc', true, 'hoy');
-
-// I need to connect form for create new task on list defaul or other project!
+const task1 = CreateTask('buy butter', true);
+const task2 = CreateTask('buy usd', true);
+const task3 = CreateTask('buy btc', true);
 
 const defaultProject = CreateList('My day', task1, task2, task3);
 console.log(defaultProject);
