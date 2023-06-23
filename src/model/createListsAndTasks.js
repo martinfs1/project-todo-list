@@ -31,7 +31,6 @@ const task2 = CreateTask('buy usd', true);
 const task3 = CreateTask('buy btc', true);
 
 const defaultProject = CreateList('My day', task1, task2, task3);
-console.log(defaultProject);
 
 export {
   defaultProject,

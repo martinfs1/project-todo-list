@@ -1,32 +1,29 @@
 import { format, addMinutes } from 'date-fns';
-import { CreateTask } from '../model/createListsAndTasks';
+import { CreateList, CreateTask } from '../model/createListsAndTasks';
 import { listsToshow } from './listsSection';
 
 const displayListWithTasks = (arrayLists) => {
-  console.log(arrayLists);
   const listToshowDiv = document.getElementById('default-selectedList');
   const taskForm = document.getElementById('taskForm');
   let taskToShow;
 
   const cardList = `
   <div class="list" data-id=${arrayLists.id}>
-  <h2 id='h2Main'>Title:${arrayLists.title}</h2>       
+  <h2 id='h2Main'>Title:${arrayLists.title}</h2>
   </div>
   `;
   listToshowDiv.innerHTML += cardList;
 
   const showTasksOnList = (arrayTasks) => {
-    console.log(arrayTasks.tasks);
     arrayTasks.tasks.forEach((element) => {
       taskToShow = `
       <div class="task" data-id=${element.id}>
       <h3>${element.title}</h3>
       <p>${element.priority}</p>
       <p>${element.date}</p>
-      </div>      
+      </div>
       `;
       const h2ToAddTasks = document.getElementById('h2Main');
-      console.log(h2ToAddTasks);
       h2ToAddTasks.parentNode.innerHTML += taskToShow;
     });
   };
@@ -50,9 +47,7 @@ const displayListWithTasks = (arrayLists) => {
 
       const listFound = listsToshow.find((list) => list.id === listId);
       listFound.tasks.push(newTask);
-      console.log(listFound);
-      const listFiltered = listFound.tasks.filter((taskToFilter) => taskToFilter.id === newTask.id);
-      console.log(listFiltered);
+      const listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
       showTasksOnList(listFiltered);
     }
   };
@@ -68,5 +63,8 @@ const displayListWithTasks = (arrayLists) => {
 const mainSection = (listToshow) => {
   displayListWithTasks(listToshow);
 };
+
+// I need to solve the task of show the selected project with their tasks
+// in main section
 
 export default mainSection;
