@@ -1,11 +1,12 @@
+import { id } from 'date-fns/locale';
 import { CreateList, defaultProject } from '../model/createListsAndTasks';
+import { mainSection, listToshowDiv } from './mainSection';
 
 const titleDom = document.getElementById('titleList');
 const listsDiv = document.querySelector('.container-lists');
 const listsToshow = [defaultProject];
 let cardList;
 let btnListToRemove;
-
 const resetInput = () => {
   titleDom.value = ' ';
 };
@@ -22,7 +23,7 @@ const displayLists = (array) => {
   array.forEach((element) => {
     cardList = `
     <div class="list" data-id=${element.id}>
-    <h2>Tittle:${element.title}</h2> 
+    <h2 class="tittleProject">Tittle:${element.title}</h2> 
     <button class="remove-btn" type="button" data-id=${element.id}>Remove</button>
     </div>
     `;
@@ -56,6 +57,12 @@ const listsSection = () => {
     } else if (e.target.matches('.remove-btn')) {
       btnListToRemove = e.target.parentNode;
       removeList();
+    } else if (e.target.matches('.tittleProject')) {
+      const projectToExpand = e.target.parentElement.dataset.id;
+      console.log(projectToExpand);
+      const projectToshow = listsToshow.find((element) => element.id === projectToExpand);
+      listToshowDiv.firstElementChild.remove();
+      mainSection(projectToshow);
     }
   });
 };

@@ -2,8 +2,8 @@ import { format, addMinutes } from 'date-fns';
 import { CreateList, CreateTask } from '../model/createListsAndTasks';
 import { listsToshow } from './listsSection';
 
+const listToshowDiv = document.getElementById('default-selectedList');
 const displayListWithTasks = (arrayLists) => {
-  const listToshowDiv = document.getElementById('default-selectedList');
   const taskForm = document.getElementById('taskForm');
   let taskToShow;
 
@@ -44,7 +44,6 @@ const displayListWithTasks = (arrayLists) => {
         formatedDate,
         note.value,
       );
-
       const listFound = listsToshow.find((list) => list.id === listId);
       listFound.tasks.push(newTask);
       const listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
@@ -64,7 +63,6 @@ const mainSection = (listToshow) => {
   displayListWithTasks(listToshow);
 };
 
-// I need to solve the task of show the selected project with their tasks
-// in main section
+// I need to solve the task of add new task to selected project in main section
 
-export default mainSection;
+export { mainSection, listToshowDiv };
