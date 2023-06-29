@@ -1,8 +1,8 @@
 import { format, addMinutes } from 'date-fns';
 import { CreateList, CreateTask } from '../model/createListsAndTasks';
-import { listsToshow } from './listsSection';
 
 const listToshowDiv = document.getElementById('default-selectedList');
+
 const displayListWithTasks = (arrayLists) => {
   const taskForm = document.getElementById('taskForm');
   let taskToShow;
@@ -30,6 +30,9 @@ const displayListWithTasks = (arrayLists) => {
   showTasksOnList(arrayLists);
 
   const addTasksToList = (listId) => {
+    let listFound;
+    let listFiltered;
+
     const titleInput = document.getElementById('titleTask');
     const inputValue = document.getElementById('date').value;
     const date = addMinutes(new Date(inputValue), new Date().getTimezoneOffset());
@@ -44,11 +47,12 @@ const displayListWithTasks = (arrayLists) => {
         formatedDate,
         note.value,
       );
-      const listFound = listsToshow.find((list) => list.id === listId);
+      // listFound = listsToshow.find((list) => list.id === listId);
       listFound.tasks.push(newTask);
-      const listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
-      showTasksOnList(listFiltered);
+      listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
+      console.log(listFiltered);
     }
+    showTasksOnList(listFiltered);
   };
 
   taskForm.addEventListener('click', (e) => {
@@ -65,4 +69,4 @@ const mainSection = (listToshow) => {
 
 // I need to solve the task of add new task to selected project in main section
 
-export { mainSection, listToshowDiv };
+export default mainSection;
