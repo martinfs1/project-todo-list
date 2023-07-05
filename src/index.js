@@ -4,5 +4,6 @@ import { listsSection } from './view/listsSection';
 import mainSection from './view/mainSection';
 import { defaultProject } from './model/createListsAndTasks';
 
-listsSection(defaultProject);
+listsSection();
+
 mainSection(defaultProject);

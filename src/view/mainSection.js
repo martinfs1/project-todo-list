@@ -1,19 +1,23 @@
 import { format, addMinutes } from 'date-fns';
 import { CreateList, CreateTask } from '../model/createListsAndTasks';
+import { listsToshow } from './listsSection';
 
-const listToshowDiv = document.getElementById('default-selectedList');
+console.log(listsToshow);
 
-const displayListWithTasks = (arrayLists) => {
-  const taskForm = document.getElementById('taskForm');
-  let taskToShow;
+const divToShowList = document.getElementById('default-selectedList');
+let taskToShow;
 
+const displayList = (listToshow) => {
   const cardList = `
-  <div class="list" data-id=${arrayLists.id}>
-  <h2 id='h2Main'>Title:${arrayLists.title}</h2>
+  <div class="list" data-id=${listToshow.id}>
+  <h2 id='h2Main'>Title:${listToshow.title}</h2>
   </div>
   `;
-  listToshowDiv.innerHTML += cardList;
+  divToShowList.innerHTML += cardList;
+};
 
+const displayListWithTasks = (arrayLists) => {
+  console.log(arrayLists.tasks);
   const showTasksOnList = (arrayTasks) => {
     arrayTasks.tasks.forEach((element) => {
       taskToShow = `
@@ -28,45 +32,59 @@ const displayListWithTasks = (arrayLists) => {
     });
   };
   showTasksOnList(arrayLists);
+};
 
-  const addTasksToList = (listId) => {
-    let listFound;
-    let listFiltered;
+const addTasksToList = (listId) => {
+  console.log(listId);
+  let listFound;
+  let listFiltered;
 
-    const titleInput = document.getElementById('titleTask');
-    const inputValue = document.getElementById('date').value;
-    const date = addMinutes(new Date(inputValue), new Date().getTimezoneOffset());
-    const formatedDate = format(date, 'dd-MM-yyyy');
-    const priority = document.getElementById('priority');
-    const note = document.getElementById('notes');
-    const listToAddTasks = listId; // this is to compare selected project  to add tasks
-    if (listToAddTasks === listId) {
-      const newTask = CreateTask(
-        titleInput.value,
-        priority.checked,
-        formatedDate,
-        note.value,
-      );
-      // listFound = listsToshow.find((list) => list.id === listId);
-      listFound.tasks.push(newTask);
-      listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
-      console.log(listFiltered);
-    }
-    showTasksOnList(listFiltered);
-  };
+  const titleInput = document.getElementById('titleTask');
+  const inputValue = document.getElementById('date').value;
+  const date = addMinutes(new Date(inputValue), new Date().getTimezoneOffset());
+  const formatedDate = format(date, 'dd-MM-yyyy');
+  const priority = document.getElementById('priority');
+  const note = document.getElementById('notes');
+  const listToAddTasks = listId; // this is to compare selected project  to add tasks
+  if (listToAddTasks === listId) {
+    const newTask = CreateTask(
+      titleInput.value,
+      priority.checked,
+      formatedDate,
+      note.value,
+    );
+    listFound = listsToshow.find((list) => list.id === listId);
+    listFound.tasks.push(newTask);
+    listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
+    console.log(listFiltered);
+  }
+};
 
-  taskForm.addEventListener('click', (e) => {
-    if (e.target.matches('.newTaskBtn')) {
+const mainSection = (listToshow) => {
+  displayList(listToshow);
+  displayListWithTasks(listToshow);
+
+  let idProjectToShow;
+  let projectToshow;
+  document.addEventListener('click', (e) => {
+    if (e.target.matches('.tittleProject')) {
+      idProjectToShow = e.target.parentNode.getAttribute('data-id');
+      divToShowList.firstElementChild.remove();
+      projectToshow = listsToshow.find((element) => element.id === idProjectToShow);
+      console.log(idProjectToShow);
+      console.log(projectToshow);
+      displayList(projectToshow);
+      // addTasksToList(idProjectToShow);
+      displayListWithTasks(projectToshow);
+    } else if (e.target.matches('.newTaskBtn')) {
       e.preventDefault();
-      addTasksToList(arrayLists.id);
+      console.log(idProjectToShow);
+      addTasksToList(idProjectToShow);
+      displayListWithTasks(projectToshow);
     }
   });
 };
 
-const mainSection = (listToshow) => {
-  displayListWithTasks(listToshow);
-};
-
-// I need to solve the task of add new task to selected project in main section
+// 1 I need to solve how to add new task to selected project in main section
 
 export default mainSection;

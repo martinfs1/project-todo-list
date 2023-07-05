@@ -1,7 +1,6 @@
 import { CreateList, defaultProject } from '../model/createListsAndTasks';
 
 const titleDom = document.getElementById('titleList');
-const listToshowDiv = document.getElementById('default-selectedList');
 const listsDiv = document.querySelector('.container-lists');
 const listsToshow = [defaultProject];
 let cardList;
@@ -10,7 +9,6 @@ let btnListToRemove;
 const resetInput = () => {
   titleDom.value = null;
 };
-
 const addListToLists = () => {
   const title = titleDom.value;
   console.log(typeof title, title);
@@ -27,7 +25,7 @@ const displayLists = (array) => {
   array.forEach((element) => {
     cardList = `
     <div class="list" data-id=${element.id}>
-    <h2 class="tittleProject">${element.title}</h2> 
+    <h2 class="tittleProject" id="defaultProject">${element.title}</h2> 
     <button class="remove-btn" type="button" data-id=${element.id}>Remove</button>
     </div>
     `;
@@ -57,32 +55,24 @@ const listsSection = () => {
     e.preventDefault();
     if (e.target.matches('.newListBtn')) {
       addListToLists();
-      resetInput();
-      debugger;
       if (titleDom.value) {
         console.log(titleDom.value);
         displayLists(listsToshow);
+        resetInput();
       } else {
         console.log('there is not!');
       }
     } else if (e.target.matches('.remove-btn')) {
       btnListToRemove = e.target.parentNode;
       removeList();
-    } else if (e.target.matches('.tittleProject')) {
-      listToshowDiv.firstElementChild.remove();
     }
   });
 };
 export {
-  listsSection, listsToshow,
+  listsSection, listsToshow, listsDiv,
 };
 // if (div.getAttribute('class') === 'container-lists') {
 //   listsDiv.innerHTML += cardList;
 // } else {
 //   listToshowDiv.innerHTML = +cardList;
 // }
-
-// const projectToExpand = e.target.parentElement.dataset.id;
-// console.log(projectToExpand);
-// const projectToshow = listsToshow.find((element) => element.id === projectToExpand);
-// console.log(projectToshow);
