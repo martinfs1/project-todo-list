@@ -6,12 +6,8 @@ const listsToshow = [defaultProject];
 let cardList;
 let btnListToRemove;
 
-const resetInput = () => {
-  titleDom.value = null;
-};
 const addListToLists = () => {
   const title = titleDom.value;
-  console.log(typeof title, title);
   if (title === '') {
     console.log('no puedes agregar un proyecto sin nombre');
   } else {
@@ -26,7 +22,7 @@ const displayLists = (array) => {
     cardList = `
     <div class="list" data-id=${element.id}>
     <h2 class="tittleProject" id="defaultProject">${element.title}</h2> 
-    <button class="remove-btn" type="button" data-id=${element.id}>Remove</button>
+    <button class="removeList-btn" type="button" data-id=${element.id}>Remove</button>
     </div>
     `;
   });
@@ -38,14 +34,17 @@ const removeList = () => {
   listsToshow.forEach((list, i) => {
     if (list.id === btnListToRemove.dataset.id) { listsToshow.splice(i, 1); }
   });
-  console.log(listsToshow);
 };
 
 const defaultProjectCard = () => {
-  const btnMyday = document.querySelector('.remove-btn');
+  const btnMyday = document.querySelector('.removeList-btn');
   if (listsToshow[0].title === 'My day') {
     btnMyday.remove();
   }
+};
+const resetInputs = () => {
+  const listsForm = document.getElementById('listsForm');
+  listsForm.reset();
 };
 
 const listsSection = () => {
@@ -56,13 +55,12 @@ const listsSection = () => {
     if (e.target.matches('.newListBtn')) {
       addListToLists();
       if (titleDom.value) {
-        console.log(titleDom.value);
         displayLists(listsToshow);
-        resetInput();
+        resetInputs();
       } else {
         console.log('there is not!');
       }
-    } else if (e.target.matches('.remove-btn')) {
+    } else if (e.target.matches('.removeList-btn')) {
       btnListToRemove = e.target.parentNode;
       removeList();
     }
@@ -71,8 +69,5 @@ const listsSection = () => {
 export {
   listsSection, listsToshow, listsDiv,
 };
-// if (div.getAttribute('class') === 'container-lists') {
-//   listsDiv.innerHTML += cardList;
-// } else {
-//   listToshowDiv.innerHTML = +cardList;
-// }
+
+// I need to solve the problem of remove task from the list.

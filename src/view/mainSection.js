@@ -1,63 +1,82 @@
 import { format, addMinutes } from 'date-fns';
-import { CreateList, CreateTask } from '../model/createListsAndTasks';
+import { CreateTask } from '../model/createListsAndTasks';
 import { listsToshow } from './listsSection';
 
-console.log(listsToshow);
-
 const divToShowList = document.getElementById('default-selectedList');
-let taskToShow;
+let titleInput;
+let dateInputValue;
+let priority;
+let note;
 
-const displayList = (listToshow) => {
-  const cardList = `
-  <div class="list" data-id=${listToshow.id}>
-  <h2 id='h2Main'>Title:${listToshow.title}</h2>
-  </div>
-  `;
-  divToShowList.innerHTML += cardList;
-};
-
-const displayListWithTasks = (arrayLists) => {
-  console.log(arrayLists.tasks);
-  const showTasksOnList = (arrayTasks) => {
-    arrayTasks.tasks.forEach((element) => {
-      taskToShow = `
-      <div class="task" data-id=${element.id}>
-      <h3>${element.title}</h3>
-      <p>${element.priority}</p>
-      <p>${element.date}</p>
-      </div>
-      `;
-      const h2ToAddTasks = document.getElementById('h2Main');
-      h2ToAddTasks.parentNode.innerHTML += taskToShow;
-    });
-  };
-  showTasksOnList(arrayLists);
-};
+let btnTaskToRemove;
 
 const addTasksToList = (listId) => {
-  console.log(listId);
   let listFound;
-  let listFiltered;
 
-  const titleInput = document.getElementById('titleTask');
-  const inputValue = document.getElementById('date').value;
-  const date = addMinutes(new Date(inputValue), new Date().getTimezoneOffset());
+  titleInput = document.getElementById('titleTask');
+  dateInputValue = document.getElementById('date').value;
+  const date = addMinutes(new Date(dateInputValue), new Date().getTimezoneOffset());
   const formatedDate = format(date, 'dd-MM-yyyy');
-  const priority = document.getElementById('priority');
-  const note = document.getElementById('notes');
-  const listToAddTasks = listId; // this is to compare selected project  to add tasks
-  if (listToAddTasks === listId) {
+  priority = document.getElementById('priority');
+  note = document.getElementById('notes');
+  const listToAddTasks = listId;
+  if ((titleInput) && listToAddTasks === listId) {
     const newTask = CreateTask(
       titleInput.value,
       priority.checked,
       formatedDate,
       note.value,
     );
+
     listFound = listsToshow.find((list) => list.id === listId);
     listFound.tasks.push(newTask);
-    listFiltered = CreateList('', listFound.tasks[listFound.tasks.length - 1]);
-    console.log(listFiltered);
   }
+};
+
+const resetInputs = () => {
+  const taskForm = document.getElementById('taskForm');
+  taskForm.reset();
+};
+
+const displayList = (listToshow) => {
+  const cardList = `
+  <div class="list" data-id=${listToshow.id}>
+  <h2 id='h2Main'>Title:${listToshow.title}</h2>    
+  </div>
+  `;
+  divToShowList.innerHTML += cardList;
+};
+
+const displayListWithTasks = (arrayTasks) => {
+  const tasksContainer = document.createElement('div');
+
+  arrayTasks.tasks.forEach((element) => {
+    const taskToHTML = `
+    <div class="task" data-id=${element.id}>
+    <h3>${element.title}</h3>
+    <p>${element.priority}</p>
+    <p>${element.date}</p>
+    <button class="removeTask-btn" type="button" data-id=${element.id}>Remove</button>
+    </div>
+    `;
+    tasksContainer.insertAdjacentHTML('beforeend', taskToHTML);
+  });
+
+  const h2ToAddTasks = document.getElementById('h2Main');
+  const existingTasks = h2ToAddTasks.nextElementSibling;
+
+  if (existingTasks) {
+    existingTasks.remove();
+  }
+  h2ToAddTasks.insertAdjacentElement('afterend', tasksContainer);
+};
+
+const removeTask = () => {
+  // btnTaskToRemove.remove();
+  console.log(listsToshow.tasks);
+  // listsToshow.tasks.forEach((list, i) => {
+  //   if (list.id === btnTaskToRemove.dataset.id) { listsToshow.splice(i, 1); }
+  // });
 };
 
 const mainSection = (listToshow) => {
@@ -71,20 +90,25 @@ const mainSection = (listToshow) => {
       idProjectToShow = e.target.parentNode.getAttribute('data-id');
       divToShowList.firstElementChild.remove();
       projectToshow = listsToshow.find((element) => element.id === idProjectToShow);
-      console.log(idProjectToShow);
-      console.log(projectToshow);
       displayList(projectToshow);
-      // addTasksToList(idProjectToShow);
       displayListWithTasks(projectToshow);
     } else if (e.target.matches('.newTaskBtn')) {
       e.preventDefault();
-      console.log(idProjectToShow);
-      addTasksToList(idProjectToShow);
+      idProjectToShow = divToShowList.firstElementChild.getAttribute('data-id');
+      projectToshow = listsToshow.find((element) => element.id === idProjectToShow);
+      addTasksToList(projectToshow.id);
       displayListWithTasks(projectToshow);
+      resetInputs();
+    } else if (e.target.matches('.remove-btn')) {
+      divToShowList.firstElementChild.remove();
+      displayList(listToshow);
+      displayListWithTasks(listToshow);
+    } else if (e.target.matches('.removeTask-btn')) {
+      btnTaskToRemove = e.target.parentNode;
+      console.log(btnTaskToRemove);
+      removeTask();
     }
   });
 };
 
-// 1 I need to solve how to add new task to selected project in main section
-
-export default mainSection;
+export { mainSection, resetInputs };
